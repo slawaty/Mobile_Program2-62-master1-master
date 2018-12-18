@@ -16,7 +16,7 @@ public class Temp extends AppCompatActivity {
     private Button Home, Cal;
     private EditText editt;
     private RadioGroup Group;
-    private String strTemp,strTempRadio="Celsius",strAnswer;
+    private String strTemp,strTempRadio="Celsius",strAnwer;
     private double douAnswer;
 
     @Override
@@ -25,7 +25,7 @@ public class Temp extends AppCompatActivity {
         setContentView(R.layout.activity_temp);
 
         editt = (EditText)findViewById(R.id.edittemp);
-        Group = (RadioGroup)findViewById(R.id.radioGroup);
+        Group = (RadioGroup)findViewById(R.id.radiogroup);
 
         Home = (Button) findViewById(R.id.btnhome);
         Home.setOnClickListener(new View.OnClickListener() {
@@ -45,22 +45,34 @@ public class Temp extends AppCompatActivity {
                     if (strTemp.equals("")) {
                         Log.d("Space", "It Have space in Blank");
 
-                    } else if (strTempRadio=="Clsius"){
-
+                    } else if (strTempRadio =="Celsius"){
+                        CalCe();
                         Intent intent = new Intent(Temp.this, Tempcal.class);
+                            intent.putExtra("Tem", strTemp);
+                            intent.putExtra("Unit", strTempRadio);
+                            intent.putExtra("Answer", strAnwer);
+
                         startActivity(intent);
                         Log.d("Press", "It Have space in Data");
 
-                    } else if (strTempRadio=="Fahrenheit"){
+                    } else if (strTempRadio =="Fahrenheit"){
 
                     Intent intent = new Intent(Temp.this, Tempcal.class);
+                        CalFa();
+                            intent.putExtra("Tem", strTemp);
+                            intent.putExtra("Unit", strTempRadio);
+                            intent.putExtra("Answer", strAnwer);
+
                     startActivity(intent);
                     Log.d("Press", "It Have space in Data");
 
-                     } else if (strTempRadio=="Kalvin"){
-
-
+                     } else if (strTempRadio =="Kalvin"){
+                        CalKal();
                         Intent intent = new Intent(Temp.this, Tempcal.class);
+                            intent.putExtra("Tem", strTemp);
+                            intent.putExtra("Unit", strTempRadio);
+                            intent.putExtra("Answer", strAnwer);
+
                         startActivity(intent);
                         Log.d("Pass", "It Have space in Data");
             }
@@ -80,18 +92,32 @@ public class Temp extends AppCompatActivity {
                 switch (i){
                     case R.id.radioCe:
                         strTempRadio="Celsius";
+                        break;
                     case  R.id.radioFa:
                         strTempRadio="Fahrenheit";
+                        break;
                     case R.id.radiokvl:
                         strTempRadio="Kalvin";
-
-
-
+                        break;
 
                 }
             }
         });
 
+    }
+    private void CalCe(){
+        douAnswer = Double.parseDouble(strTemp);
+        strAnwer = Double.toString(douAnswer);
+    }
+
+    private void CalFa(){
+        douAnswer = Double.parseDouble(strTemp)*1.8+32;
+        strAnwer = Double.toString(douAnswer);
+    }
+
+    private void CalKal(){
+        douAnswer = Double.parseDouble(strTemp)+273.15;
+        strAnwer = Double.toString(douAnswer);
     }
   }
 
